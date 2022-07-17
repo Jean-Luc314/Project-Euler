@@ -16,7 +16,13 @@ function sieve(N)
     N = 2:N
     index = 2
     primes = []
-    while index < last(N)
+    function printProgress(index, N)
+        print("\e[2K") # Clear Line
+        print("\e[1G") # Move cursor to column 1
+        print(round(100 * index / last(N), digits = 2))
+    end
+    while length(N) > 0
+        printProgress(index, N)
         if index in N
             append!(primes, index)
             N = filter(!isFactor(index), N)
